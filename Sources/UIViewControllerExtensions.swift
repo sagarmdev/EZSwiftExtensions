@@ -13,17 +13,17 @@ extension UIViewController {
     // MARK: - Notifications
     
     ///EZSE: Adds an NotificationCenter with name and Selector
-    open func addNotificationObserver(_ name: String, selector: Selector) {
-        NotificationCenter.default.addObserver(self, selector: selector, name: NSNotification.Name(rawValue: name), object: nil)
+    public func addNotificationObserver(_ name: String, selector: Selector) {
+        NotificationCenter.default.addObserver(self, selector: selector, name: NSNotification.Name (name), object: nil)
     }
     
     ///EZSE: Removes an NSNotificationCenter for name
-    open func removeNotificationObserver(_ name: String) {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: name), object: nil)
+    public func removeNotificationObserver(_ name: String) {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name (name), object: nil)
     }
     
     ///EZSE: Removes NotificationCenter'd observer
-    open func removeNotificationObserver() {
+    public func removeNotificationObserver() {
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -32,53 +32,53 @@ extension UIViewController {
     ///EZSE: Adds a NotificationCenter Observer for keyboardWillShowNotification()
     ///
     /// ⚠️ You also need to implement ```keyboardWillShowNotification(_ notification: Notification)```
-    open func addKeyboardWillShowNotification() {
-        self.addNotificationObserver(NSNotification.Name.UIKeyboardWillShow.rawValue, selector: #selector(UIViewController.keyboardWillShowNotification(_:)))
+    public func addKeyboardWillShowNotification() {
+        self.addNotificationObserver(UIResponder.keyboardWillShowNotification.rawValue, selector: #selector(UIViewController.keyboardWillShowNotification(_:)))
     }
     
     ///EZSE:  Adds a NotificationCenter Observer for keyboardDidShowNotification()
     ///
     /// ⚠️ You also need to implement ```keyboardDidShowNotification(_ notification: Notification)```
     public func addKeyboardDidShowNotification() {
-        self.addNotificationObserver(NSNotification.Name.UIKeyboardDidShow.rawValue, selector: #selector(UIViewController.keyboardDidShowNotification(_:)))
+        self.addNotificationObserver(UIResponder.keyboardDidShowNotification.rawValue, selector: #selector(UIViewController.keyboardDidShowNotification(_:)))
     }
     
     ///EZSE:  Adds a NotificationCenter Observer for keyboardWillHideNotification()
     ///
     /// ⚠️ You also need to implement ```keyboardWillHideNotification(_ notification: Notification)```
-    open func addKeyboardWillHideNotification() {
-        self.addNotificationObserver(NSNotification.Name.UIKeyboardWillHide.rawValue, selector: #selector(UIViewController.keyboardWillHideNotification(_:)))
+    public func addKeyboardWillHideNotification() {
+        self.addNotificationObserver(UIResponder.keyboardWillHideNotification.rawValue, selector: #selector(UIViewController.keyboardWillHideNotification(_:)))
     }
     
     ///EZSE:  Adds a NotificationCenter Observer for keyboardDidHideNotification()
     ///
     /// ⚠️ You also need to implement ```keyboardDidHideNotification(_ notification: Notification)```
-    open func addKeyboardDidHideNotification() {
-        self.addNotificationObserver(NSNotification.Name.UIKeyboardDidHide.rawValue, selector: #selector(UIViewController.keyboardDidHideNotification(_:)))
+    public func addKeyboardDidHideNotification() {
+        self.addNotificationObserver(UIResponder.keyboardDidHideNotification.rawValue, selector: #selector(UIViewController.keyboardDidHideNotification(_:)))
     }
     
     ///EZSE: Removes keyboardWillShowNotification()'s NotificationCenter Observer
-    open func removeKeyboardWillShowNotification() {
-        self.removeNotificationObserver(NSNotification.Name.UIKeyboardWillShow.rawValue)
+    public func removeKeyboardWillShowNotification() {
+        self.removeNotificationObserver(UIResponder.keyboardWillShowNotification.rawValue)
     }
     
     ///EZSE: Removes keyboardDidShowNotification()'s NotificationCenter Observer
-    open func removeKeyboardDidShowNotification() {
-        self.removeNotificationObserver(NSNotification.Name.UIKeyboardDidShow.rawValue)
+    public func removeKeyboardDidShowNotification() {
+        self.removeNotificationObserver(UIResponder.keyboardDidShowNotification.rawValue)
     }
     
     ///EZSE: Removes keyboardWillHideNotification()'s NotificationCenter Observer
-    open func removeKeyboardWillHideNotification() {
-        self.removeNotificationObserver(NSNotification.Name.UIKeyboardWillHide.rawValue)
+    public func removeKeyboardWillHideNotification() {
+        self.removeNotificationObserver(UIResponder.keyboardWillHideNotification.rawValue)
     }
     
     ///EZSE: Removes keyboardDidHideNotification()'s NotificationCenter Observer
-    open func removeKeyboardDidHideNotification() {
-        self.removeNotificationObserver(NSNotification.Name.UIKeyboardDidHide.rawValue)
+    public func removeKeyboardDidHideNotification() {
+        self.removeNotificationObserver(UIResponder.keyboardDidHideNotification.rawValue)
     }
     
     @objc open func keyboardDidShowNotification(_ notification: Notification) {
-        if let nInfo = (notification as NSNotification).userInfo, let value = nInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+        if let nInfo = (notification as NSNotification).userInfo, let value = nInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             
             let frame = value.cgRectValue
             keyboardDidShowWithFrame(frame)
@@ -86,7 +86,7 @@ extension UIViewController {
     }
     
     @objc open func keyboardWillShowNotification(_ notification: Notification) {
-        if let nInfo = (notification as NSNotification).userInfo, let value = nInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+        if let nInfo = (notification as NSNotification).userInfo, let value = nInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             
             let frame = value.cgRectValue
             keyboardWillShowWithFrame(frame)
@@ -94,7 +94,7 @@ extension UIViewController {
     }
     
     @objc open func keyboardWillHideNotification(_ notification: Notification) {
-        if let nInfo = (notification as NSNotification).userInfo, let value = nInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+        if let nInfo = (notification as NSNotification).userInfo, let value = nInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             
             let frame = value.cgRectValue
             keyboardWillHideWithFrame(frame)
@@ -102,31 +102,31 @@ extension UIViewController {
     }
     
     @objc open func keyboardDidHideNotification(_ notification: Notification) {
-        if let nInfo = (notification as NSNotification).userInfo, let value = nInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+        if let nInfo = (notification as NSNotification).userInfo, let value = nInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             
             let frame = value.cgRectValue
             keyboardDidHideWithFrame(frame)
         }
     }
     
-    open func keyboardWillShowWithFrame(_ frame: CGRect) {
+    public func keyboardWillShowWithFrame(_ frame: CGRect) {
         
     }
     
-    open func keyboardDidShowWithFrame(_ frame: CGRect) {
+    public func keyboardDidShowWithFrame(_ frame: CGRect) {
         
     }
     
-    open func keyboardWillHideWithFrame(_ frame: CGRect) {
+    public func keyboardWillHideWithFrame(_ frame: CGRect) {
         
     }
     
-    open func keyboardDidHideWithFrame(_ frame: CGRect) {
+    public func keyboardDidHideWithFrame(_ frame: CGRect) {
         
     }
     
     //EZSE: Makes the UIViewController register tap events and hides keyboard when clicked somewhere in the ViewController.
-    open func hideKeyboardWhenTappedAround(cancelTouches: Bool = false) {
+    public func hideKeyboardWhenTappedAround(cancelTouches: Bool = false) {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = cancelTouches
         view.addGestureRecognizer(tap)
@@ -142,7 +142,7 @@ extension UIViewController {
     // MARK: - VC Container
     
     ///EZSE: Returns maximum y of the ViewController
-    open var top: CGFloat {
+    public var top: CGFloat {
         if let me = self as? UINavigationController, let visibleViewController = me.visibleViewController {
             return visibleViewController.top
         }
@@ -158,7 +158,7 @@ extension UIViewController {
     }
     
     ///EZSE: Returns minimum y of the ViewController
-    open var bottom: CGFloat {
+    public var bottom: CGFloat {
         if let me = self as? UINavigationController, let visibleViewController = me.visibleViewController {
             return visibleViewController.bottom
         }
@@ -174,7 +174,7 @@ extension UIViewController {
     }
     
     ///EZSE: Returns Tab Bar's height
-    open var tabBarHeight: CGFloat {
+    public var tabBarHeight: CGFloat {
         if let me = self as? UINavigationController, let visibleViewController = me.visibleViewController {
             return visibleViewController.tabBarHeight
         }
@@ -185,7 +185,7 @@ extension UIViewController {
     }
     
     ///EZSE: Returns Navigation Bar's height
-    open var navigationBarHeight: CGFloat {
+    public var navigationBarHeight: CGFloat {
         if let me = self as? UINavigationController, let visibleViewController = me.visibleViewController {
             return visibleViewController.navigationBarHeight
         }
@@ -196,7 +196,7 @@ extension UIViewController {
     }
     
     ///EZSE: Returns Navigation Bar's color
-    open var navigationBarColor: UIColor? {
+    public var navigationBarColor: UIColor? {
         get {
             if let me = self as? UINavigationController, let visibleViewController = me.visibleViewController {
                 return visibleViewController.navigationBarColor
@@ -208,24 +208,24 @@ extension UIViewController {
     }
     
     ///EZSE: Returns current Navigation Bar
-    open var navBar: UINavigationBar? {
+    public var navBar: UINavigationBar? {
         return navigationController?.navigationBar
     }
     
     /// EZSwiftExtensions
-    open var applicationFrame: CGRect {
+    public var applicationFrame: CGRect {
         return CGRect(x: view.x, y: top, width: view.w, height: bottom - top)
     }
     
     // MARK: - VC Flow
     
     ///EZSE: Pushes a view controller onto the receiver’s stack and updates the display.
-    open func pushVC(_ vc: UIViewController) {
+    public func pushVC(_ vc: UIViewController) {
         navigationController?.pushViewController(vc, animated: true)
     }
     
     ///EZSE: Pops the top view controller from the navigation stack and updates the display.
-    open func popVC() {
+    public func popVC() {
         _ = navigationController?.popViewController(animated: true)
     }
 
@@ -240,34 +240,34 @@ extension UIViewController {
     }
     
     /// EZSE: Added extension for popToRootViewController
-    open func popToRootVC() {
+    public func popToRootVC() {
         _ = navigationController?.popToRootViewController(animated: true)
     }
     
     ///EZSE: Presents a view controller modally.
-    open func presentVC(_ vc: UIViewController) {
+    public func presentVC(_ vc: UIViewController) {
         present(vc, animated: true, completion: nil)
     }
     
     ///EZSE: Dismisses the view controller that was presented modally by the view controller.
-    open func dismissVC(completion: (() -> Void)? ) {
+    public func dismissVC(completion: (() -> Void)? ) {
         dismiss(animated: true, completion: completion)
     }
     
     ///EZSE: Adds the specified view controller as a child of the current view controller.
-    open func addAsChildViewController(_ vc: UIViewController, toView: UIView) {
-        self.addChildViewController(vc)
+    public func addAsChildViewController(_ vc: UIViewController, toView: UIView) {
+        self.addChild(vc)
         toView.addSubview(vc.view)
-        vc.didMove(toParentViewController: self)
+        vc.didMove(toParent: self)
     }
     
     ///EZSE: Adds image named: as a UIImageView in the Background
-    open func setBackgroundImage(_ named: String) {
+    public func setBackgroundImage(_ named: String) {
         let image = UIImage(named: named)
         let imageView = UIImageView(frame: view.frame)
         imageView.image = image
         view.addSubview(imageView)
-        view.sendSubview(toBack: imageView)
+        view.sendSubviewToBack(imageView)
     }
     
     ///EZSE: Adds UIImage as a UIImageView in the Background
@@ -275,12 +275,12 @@ extension UIViewController {
         let imageView = UIImageView(frame: view.frame)
         imageView.image = image
         view.addSubview(imageView)
-        view.sendSubview(toBack: imageView)
+        view.sendSubviewToBack(imageView)
     }
     
     #if os(iOS)
 
-    @available(*, deprecated: 1.9)
+    @available(*, deprecated)
     public func hideKeyboardWhenTappedAroundAndCancelsTouchesInView() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
