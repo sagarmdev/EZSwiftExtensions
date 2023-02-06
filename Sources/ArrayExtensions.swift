@@ -21,12 +21,6 @@ public func ==<T: Equatable>(lhs: [T]?, rhs: [T]?) -> Bool {
 
 extension Array {
 
-    ///EZSE: Get a sub array from range of index
-    public func get(at range: ClosedRange<Int>) -> Array {
-        let halfOpenClampedRange = Range(range).clamped(to: Range(indices))
-        return Array(self[halfOpenClampedRange])
-    }
-
     /// EZSE: Checks if array contains at least 1 item which type is same with given element's type
     public func containsType<T>(of element: T) -> Bool {
         let elementType = type(of: element)
